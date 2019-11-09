@@ -1,5 +1,7 @@
 package util;
 
+import algorithm.listProblem.ListNode;
+
 /**
  * @author Yandx
  * @version 1.0
@@ -25,6 +27,19 @@ public class MyUtil {
     public static int getDigit(int i, int k) {
         int[] a = {1, 10, 100, 1000, 10000, 100000,1000000};
         return (i / a[k - 1]) % 10;
+    }
+
+    public static void printList(ListNode node){
+        if (node==null){
+            System.out.println("[]");
+        }else{
+            StringBuilder stringBuilder = new StringBuilder(String.valueOf(node.val));
+            while(node.next!=null){
+                stringBuilder.append("->").append(String.valueOf(node.next.val));
+                node = node.next;
+            }
+            System.out.println(stringBuilder.toString());
+        }
     }
 
 
