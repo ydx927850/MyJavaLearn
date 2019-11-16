@@ -40,6 +40,20 @@ public class MaxSubArray {
         return dp[k];
     }
 
+    private static int findMaxSubArrayRes2(int[] nums){
+        int res = nums[0];
+        int sum = 0;
+        for(int num:nums){
+            if (sum>0){
+                sum += num;
+            }else{
+                sum = num;
+            }
+            res = Math.max(sum,res);
+        }
+        return res;
+    }
+
     /**
      * 递归查找最大子数组
      *
@@ -56,8 +70,11 @@ public class MaxSubArray {
         int[] left;
         int[] right;
         int[] cross;
+        //左侧递归
         left = findMaxSubArray(nums, low, mid);
+        //右侧递归
         right = findMaxSubArray(nums, mid + 1, high);
+        //跨越中点的最大子数组
         cross = findMaxCrossArray(nums, low, mid, high);
         if (left[2] >= right[2] && left[2] >= cross[2]) {
             return left;
