@@ -18,8 +18,26 @@ import java.util.Arrays;
 public class MaxSubArray {
     public static void main(String[] args) {
         int[] nums = new int[]{13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7};
-        int[] maxSubArray = findMaxSubArray(nums, 0, nums.length - 1);
-        System.out.println(Arrays.toString(maxSubArray));
+        int[] nums1 = new int[]{-2,1,-3,4,-1,2,1,-5,4};
+        System.out.println(findMaxSubArrayRes(nums1));
+//        int[] maxSubArray = findMaxSubArray(nums, 0, nums.length - 1);
+//        System.out.println(Arrays.toString(maxSubArray));
+    }
+
+
+    private static int findMaxSubArrayRes(int[] nums){
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        for(int i=1;i<nums.length;i++){
+            dp[i] = Math.max(nums[i],dp[i-1]+nums[i]);
+        }
+        int k=0;
+        for(int j=1;j<dp.length;j++){
+            if(dp[j]>dp[k]){
+                k = j;
+            }
+        }
+        return dp[k];
     }
 
     /**
