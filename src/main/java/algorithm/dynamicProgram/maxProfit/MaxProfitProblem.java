@@ -2,7 +2,7 @@ package algorithm.dynamicProgram.maxProfit;
 
 /**
  * 使用状态方程解决股票买卖问题
- * dp[i][k][p] --> 第i天，至多还可以进行k次交易时，持有股票状态为p(0:不持有，1：持有)时，最大的利润
+ * dp[i][k][p] --> 第i天，进行k次交易时，持有股票状态为p(0:不持有，1：持有)时，最大的利润
  * 对于p=0状态 --> 在卖出股票之后，不持有股票的情况（不包含原本就不持有）
  * <p>
  * base case：
@@ -12,6 +12,7 @@ package algorithm.dynamicProgram.maxProfit;
  * 状态转移方程：
  * dp[i][k][0] = max(dp[i-1][k][0] , dp[i-1][k][1] + price[i])
  * dp[i][k][1] = max(dp[i-1][k][1] , dp[i-1][k-1][0] - price[i])
+ * （第i天进行k次交易持有股票时，如果是通过在第i天购买转移来的，那么上一次（i-1）未持有股票进行的应该是k-1次交易，这样第i天购买才是第k次交易）
  */
 public class MaxProfitProblem {
     public static void main(String[] args) {
@@ -121,27 +122,38 @@ public class MaxProfitProblem {
     }
 
     /**
-     * 限定交易次数为k次
+     * 限定交易次数为k
+     * <p>
+     * 状态转移方程：
+     * dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
+     * dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
+     * <p>
+     * base case:
+     * dp[0][k][0] = 0
+     * dp[0][k][1] = -prices[i]
      */
-    private static int problem5(int[] prices, int k) {
-        if (prices == null || prices.length == 0) return 0;
-        if (k > prices.length / 2) {
-            //此时已经变成了不限制次数交易
+    private static int problem5(int[] prices, int K) {
+        if (prices == null || prices.length == 0) {
+            return 0;
+        }
+        if (prices.length == 1) {
+            return 0;
+        }
+        if (K > prices.length / 2) {
+            //此时已经变成了不限制次数交易，直接采用不限定交易次数的方法解决
             return problem2(prices);
         }
-        int[][][] dp = new int[prices.length][k+1][2];
-        for (int i = 0; i < k + 1; i++) {
-            dp[0][i][0] = 0;
-            dp[0][i][1] = -prices[0];
+        int[][][] dp = new int[prices.length][K + 1][2];
+        for (int k = 0; k < K + 1; k++) {
+            dp[0][k][0] = 0;
+            dp[0][k][1] = -prices[0];
         }
         for (int i = 1; i < prices.length; i++) {
-            for (int k1 = 1; k1 <= k; k1++) {
-                dp[i][k1][0] = Math.max(dp[i - 1][k1][0], dp[i - 1][k1][1] + prices[i]);
-                dp[i][k1][1] = Math.max(dp[i - 1][k1][1], dp[i - 1][k1-1][0] - prices[i]);
+            for (int k = 1; k <= K; k++) {
+                dp[i][k][0] = Math.max(dp[i - 1][k][0], dp[i - 1][k][1] + prices[i]);
+                dp[i][k][1] = Math.max(dp[i - 1][k][1], dp[i - 1][k - 1][0] - prices[i]);
             }
         }
-        return dp[prices.length - 1][k][0];
+        return dp[prices.length - 1][K][0];
     }
-
-
 }

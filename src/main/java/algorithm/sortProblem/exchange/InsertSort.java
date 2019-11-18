@@ -18,29 +18,24 @@ import java.util.Arrays;
 public class InsertSort {
     public static void main(String[] args) {
         int[] originalNums = new int[]{5, 3, 4, 2, 6, 1};
-        int[] sortNums = insertSort(originalNums);
-        System.out.println(Arrays.toString(sortNums));
+        insertSort(originalNums);
+        System.out.println(Arrays.toString(originalNums));
     }
 
-    public static int[] insertSort(int[] nums) {
+    public static void insertSort(int[] nums) {
         int length = nums.length;
-        if (length == 0) {
-            return null;
-        } else if (length == 1) {
-            return nums;
-        } else {
+        if (length != 0 && length != 1) {
             for (int i = 1; i < length; i++) {
                 int key = nums[i];
                 int j = i - 1;
                 while (j >= 0 && nums[j] > key) {
-                    //腾位置
+                    //移动前面的元素腾出插入位置
                     nums[j + 1] = nums[j];
                     j--;
                 }
-                //插入
+                //插入元素
                 nums[j + 1] = key;
             }
         }
-        return nums;
     }
 }

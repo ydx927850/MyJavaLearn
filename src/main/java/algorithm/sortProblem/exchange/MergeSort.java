@@ -10,6 +10,7 @@ import java.util.Arrays;
  * （3）合并排序好的子数组
  * 通过构建递归树可以得出时间复杂度为：O(nlgn)
  * 空间非原址排序（需要额外的数组空间来进行归并操作）
+ *
  * @author Yandx
  * @version 1.0
  * @date created on 2019/7/2 17:19
@@ -61,8 +62,7 @@ public class MergeSort {
             p2++;
             i++;
         }
-        if (end + 1 - start >= 0) {
-            System.arraycopy(tmp, start, nums, start, end - start + 1);
-        }
+        //复制回原数组
+        System.arraycopy(tmp, start, nums, start, end - start + 1);
     }
 }
