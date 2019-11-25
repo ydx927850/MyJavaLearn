@@ -26,8 +26,8 @@ public class CountPrimes {
         for (int i = 2; i * i < n; i++) {
             //只用考虑sqrt(n)的范围即可
             if (isPrim[i]) {
-                // i 的倍数不可能是素数了
-                for (int j = i * 2; j < n; j += i) {
+                // i 的倍数不可能是素数了,从i^2开始遍历，去掉计算冗余
+                for (int j = i * i; j < n; j += i) {
                     isPrim[j] = false;
                 }
             }
