@@ -2,6 +2,9 @@ package util;
 
 import algorithm.listProblem.ListNode;
 
+import java.util.LinkedList;
+import java.util.Stack;
+
 /**
  * @author Yandx
  * @version 1.0
@@ -29,6 +32,10 @@ public class MyUtil {
         return (i / a[k - 1]) % 10;
     }
 
+    /**
+     * 正向输出链表
+     * @param node
+     */
     public static void printList(ListNode node){
         if (node==null){
             System.out.println("[]");
@@ -40,6 +47,25 @@ public class MyUtil {
             }
             System.out.println(stringBuilder.toString());
         }
+    }
+
+    /**
+     * 反向输出链表
+     * 1.栈
+     * 2.递归
+     * @param node
+     */
+    public static void reversePrintList(ListNode node){
+        Stack<ListNode> stack = new Stack<>();
+        while (node!=null){
+            stack.push(node);
+            node = node.next;
+        }
+        StringBuilder stringBuilder = new StringBuilder(String.valueOf(stack.pop().val));
+        while(!stack.isEmpty()){
+            stringBuilder.append("->").append(stack.pop().val);
+        }
+        System.out.println(stringBuilder.toString());
     }
 
 
