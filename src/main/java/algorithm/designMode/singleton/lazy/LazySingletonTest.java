@@ -8,7 +8,12 @@ package algorithm.designMode.singleton.lazy;
 public class LazySingletonTest {
     private LazySingletonTest(){}
 
-    private LazySingletonTest instance;
+    /**
+     * 加volatile是为了避免instance = new LazySingletonTest()这一步的指令重排序导致instance的内存地址先于初始化对象发生，
+     * 导致实际instance对象尚未创建，但instance！=null这种情况出现，避免指令重排序导致的线程安全问题
+     *
+     */
+    private volatile LazySingletonTest instance;
 
     public LazySingletonTest getInstance() {
         if (instance == null){
