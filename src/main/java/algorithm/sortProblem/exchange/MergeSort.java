@@ -36,12 +36,12 @@ public class MergeSort {
     }
 
     private static void merge(int[] nums, int start, int mid, int end) {
-        int[] tmp = new int[nums.length];
+        int[] tmp = new int[end-start+1];
         //合并的思路是每次从两个子数组的顶端选定一个最小的值放入最终的数组中,最后将没有放完的填在最后
         int p1 = start;
         int p2 = mid + 1;
         //当前左子列的首元素位置是合并后的新数组的首元素，不是从0开始！
-        int i = start;
+        int i = 0;
         while (p1 <= mid && p2 <= end) {
             if (nums[p1] >= nums[p2]) {
                 tmp[i] = nums[p2];
@@ -63,6 +63,6 @@ public class MergeSort {
             i++;
         }
         //复制回原数组
-        System.arraycopy(tmp, start, nums, start, end - start + 1);
+        System.arraycopy(tmp, 0, nums, start, tmp.length);
     }
 }

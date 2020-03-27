@@ -10,16 +10,18 @@ public class LazySingletonTest {
 
     /**
      * 加volatile是为了避免instance = new LazySingletonTest()这一步的指令重排序导致instance的内存地址先于初始化对象发生，
+     * (1)分配 memory
+     * (2)将instance引用指向内存空间
+     * (3)初始化instance实例对象
      * 导致实际instance对象尚未创建，但instance！=null这种情况出现，避免指令重排序导致的线程安全问题
      *
      */
-    private volatile LazySingletonTest instance;
+    private static volatile LazySingletonTest instance;
 
-    public LazySingletonTest getInstance() {
-        if (instance == null){
+    public static LazySingletonTest getInstance() {
+        if(instance == null){
             synchronized (LazySingletonTest.class){
-                //对类加锁，所有该类的对象用同一把锁，也就是说哪个线程先拿到了其他线程就被阻塞
-                if (instance == null){
+                if(instance == null){
                     instance = new LazySingletonTest();
                 }
             }

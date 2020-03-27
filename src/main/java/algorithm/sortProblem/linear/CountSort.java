@@ -34,8 +34,9 @@ public class CountSort {
             //现在临时数组中每个i位置存储的就是小于等于i的元素个数
             tmp[i] = tmp[i] + tmp[i - 1];
         }
-        //计数排序，根据临时数组中的计数，把对应的元素放入输出数组中正确的位置
-        for (int num : nums) {
+        //计数排序，根据临时数组中的计数，把对应的元素放入输出数组中正确的位置,要从后往前遍历才能保持相对顺序
+        for (int i=nums.length-1;i>=0;i--) {
+            int num = nums[i];
             out[tmp[num] - 1] = num;
             tmp[num]--;
         }

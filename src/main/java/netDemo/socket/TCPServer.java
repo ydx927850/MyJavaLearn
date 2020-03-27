@@ -10,6 +10,7 @@ public class TCPServer {
         ServerSocket serverSocket = new ServerSocket(65000);
         //死循环，一直监听
         while(true){
+            //建立连接进行三次握手，成功才返回实例
             Socket socket = serverSocket.accept();
             //接收客户端消息后，执行业务
             new CalculateLength(socket).start();

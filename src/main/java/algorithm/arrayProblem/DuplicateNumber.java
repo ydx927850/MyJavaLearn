@@ -13,6 +13,7 @@ import java.util.Map;
  * 在一个长度为n的数组里，所有的数字都是在0~n-1范围内的，找出数组中重复的数字，可能有多个
  */
 public class DuplicateNumber {
+
     /**
      * 排序后遍历找就行了
      * 时间O(nlgn) 空间O(1)
@@ -27,6 +28,7 @@ public class DuplicateNumber {
                 System.out.println(nums[i]);
             }
         }
+        
     }
 
     /**
@@ -62,9 +64,14 @@ public class DuplicateNumber {
         }
     }
 
+
+
     public static void main(String[] args) {
         int[] nums = new int[]{2, 2, 0, 3, 3, 5, 1};
         duplicateNumber3(nums);
+        
     }
+
+
 
 }

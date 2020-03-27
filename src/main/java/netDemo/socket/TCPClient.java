@@ -6,7 +6,7 @@ import java.net.Socket;
 
 public class TCPClient {
     public static void main(String[] args) throws Exception{
-        //创建socket，指定发送地址
+        //创建socket，指定发送地址，创建过程中进行三次握手，握手成功才返回实例
         Socket socket = new Socket("127.0.0.1",65000);
         //创建输入输出流，发送并接收信息
         InputStream inputStream = socket.getInputStream();

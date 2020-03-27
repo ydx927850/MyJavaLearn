@@ -26,7 +26,7 @@ public class BIOServerTest {
                             byte[] data = new byte[1024];
                             InputStream inputStream = socket.getInputStream();
                             while((len = inputStream.read(data)) != -1){
-                                System.out.println(new String(data,0,len));
+                                System.out.println(Thread.currentThread()+new String(data,0,len));
                             }
                         } catch (IOException e) {
                             e.printStackTrace();

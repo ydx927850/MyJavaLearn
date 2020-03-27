@@ -17,7 +17,9 @@ public class IsPalindrome {
         if(fast.next==null){
             //奇数
             slow = reverseList(slow);
-        }else{
+        }
+        else
+        {
             //偶数
             slow = reverseList(slow.next);
         }
@@ -59,6 +61,11 @@ public class IsPalindrome {
 
     public static void main(String[] args) {
         ListNode node1 = new ListNode(1);
+        ListNode node2 = new ListNode(0);
+        ListNode node3 = new ListNode(1);
+        node1.next = node2;
+        node2.next = node3;
+        node3.next = null;
         System.out.println(isPalindrome(node1));
     }
 }

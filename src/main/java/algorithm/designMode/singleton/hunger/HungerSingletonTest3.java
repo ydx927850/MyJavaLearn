@@ -8,13 +8,12 @@ package algorithm.designMode.singleton.hunger;
 public class HungerSingletonTest3 {
     private HungerSingletonTest3(){}
 
-    private static HungerSingletonTest3 instance;
-
-    private HungerSingletonTest3 getInstance(){
-        return Nested.instance;
-    }
-
     private static class Nested{
         static final HungerSingletonTest3 instance = new HungerSingletonTest3();
+    }
+
+    private static HungerSingletonTest3 getInstance(){
+        //当调用getInstance的时候才会去实例化Nested这个嵌套的私有内部类，此时去实例化外层的对象
+        return Nested.instance;
     }
 }

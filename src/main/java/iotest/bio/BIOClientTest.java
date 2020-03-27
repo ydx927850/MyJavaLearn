@@ -15,7 +15,22 @@ public class BIOClientTest {
                 Socket socket = new Socket("127.0.0.1",3333);
                 while(true){
                     try {
-                        socket.getOutputStream().write((new Date() + "hello world").getBytes());
+                        socket.getOutputStream().write((new Date() +"["+Thread.currentThread()+ "]hello world").getBytes());
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }).start();
+        new Thread(()->{
+            try{
+                Socket socket = new Socket("127.0.0.1",3333);
+                while(true){
+                    try {
+                        socket.getOutputStream().write((new Date() +"["+Thread.currentThread()+ "]hello world").getBytes());
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();

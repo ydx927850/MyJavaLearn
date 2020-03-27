@@ -12,7 +12,7 @@ import java.util.Arrays;
  * @date created on 2019/7/11 14:04
  */
 public class HeapSort {
-    private static int heapSize;
+    private static int heapIndex;
 
     public static void main(String[] args) {
         int[] nums = new int[]{16, 4, 10, 14, 7, 9, 3, 2, 8, 1};
@@ -28,21 +28,21 @@ public class HeapSort {
      * @param i
      */
     private static void maxHeapify(int[] heap, int i) {
-        int left = left(i) + 1;
-        int right = right(i) + 1;
+        int left = left(i);
+        int right = right(i);
         int largest;
-        if (left <= heapSize && heap[left] > heap[i]) {
+        if (left <= heapIndex && heap[left] > heap[i]) {
             largest = left;
         } else {
             largest = i;
         }
-        if (right <= heapSize && heap[right] > heap[largest]) {
+        if (right <= heapIndex && heap[right] > heap[largest]) {
             largest = right;
         }
         if (largest != i) {
             //交换
             MyUtil.swap(heap, largest, i);
-            //交换可能导致之后的子树不满足最大堆性质，因此对新的根节点递归调用维护最大堆方法
+            //交换可能导致交换后下面的子树不满足最大堆性质，因此对新的根节点递归调用维护最大堆方法
             maxHeapify(heap, largest);
         }
     }
@@ -55,8 +55,9 @@ public class HeapSort {
      * @param heap
      */
     private static void buildMaxHeap(int[] heap) {
-        heapSize = heap.length - 1;
+        heapIndex = heap.length - 1;
         for (int i = heap.length / 2 - 1; i >= 0; i--) {
+            //从最后一个非叶子节点开始 即i = arr.length/2-1
             maxHeapify(heap, i);
         }
     }
@@ -70,23 +71,21 @@ public class HeapSort {
      */
     private static void heapSort(int[] heap) {
         buildMaxHeap(heap);
-        for (int i = heap.length - 1; i >= 1; i--) {
+        for (int i = heap.length - 1; i >= 0; i--) {
             MyUtil.swap(heap, i, 0);
-            heapSize--;
+            //处理完一个元素后，堆的有效长度减一
+            heapIndex--;
             maxHeapify(heap, 0);
         }
     }
 
-    private static int parent(int i) {
-        return i / 2;
-    }
 
     private static int left(int i) {
-        return 2 * i;
+        return 2 * i + 1;
     }
 
     private static int right(int i) {
-        return 2 * i + 1;
+        return 2 * i + 2;
     }
 
 

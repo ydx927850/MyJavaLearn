@@ -120,17 +120,17 @@ public class Traverse {
         stack.push(node);
         TreeNode pre = null;
         TreeNode cur = null;
-        while (!stack.isEmpty()) {
+        while(!stack.isEmpty()){
             cur = stack.peek();
-            if ((cur.left == null && cur.right == null) || (pre != null && cur.right == pre)) {
+            if((cur.left == null && cur.right == null) || (pre!=null && cur.right == pre)){
                 System.out.print(cur.val);
                 stack.pop();
                 pre = cur;
-            } else {
-                if (cur.right != null) {
+            }else{
+                if(cur.right!=null){
                     stack.push(cur.right);
                 }
-                if (cur.left != null) {
+                if(cur.left!=null){
                     stack.push(cur.left);
                 }
             }

@@ -47,14 +47,14 @@ public class QuickSort {
         for (int j = p + 1; j <= q; j++) {
             if (nums[j] <= pivot) {
                 i++;
+                //保证当前面出现了比pivot大的数字的情况下(i++<j)，要把这个数字移动到最右侧去，保证pivot左右的大小
                 MyUtil.swap(nums, i, j);
             }
         }
+        //把pivot交换到对应位置上去
         MyUtil.swap(nums, p, i);
         return i;
     }
-
-
 
     public static int randomPartition(int[] nums, int p, int q) {
         //随机选择主元

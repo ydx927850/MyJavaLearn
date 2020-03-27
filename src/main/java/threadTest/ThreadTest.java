@@ -1,5 +1,11 @@
 package threadTest;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * @author Yandx
  * @version 1.0
@@ -7,20 +13,21 @@ package threadTest;
  */
 public class ThreadTest {
     public static void main(String[] args) {
-        MyThread tr1 = new MyThread();
-        MyThread tr2 = new MyThread();
-        MyThread tr3 = new MyThread();
-        tr1.start();
-        tr2.start();
-        tr3.start();
-        MyRunnable mr1 = new MyRunnable();
-        MyRunnable mr2 = new MyRunnable();
-        MyRunnable mr3 = new MyRunnable();
-        Thread t1 = new Thread(mr1);
-        Thread t2 = new Thread(mr2);
-        Thread t3 = new Thread(mr3);
-        t1.start();
-        t2.start();
-        t3.start();
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        ThreadTest t1 = new ThreadTest();
+        ThreadTest t2 = new ThreadTest();
+        executorService.execute(t1::func);
+        executorService.execute(t2::func);
+    }
+    private Lock lock = new ReentrantLock();
+    public void func() {
+        lock.lock();
+        try {
+            for (int i = 0; i < 10; i++) {
+                System.out.print(i + " ");
+            }
+        } finally {
+            lock.unlock(); // 确保释放锁，从而避免发生死锁。
+        }
     }
 }

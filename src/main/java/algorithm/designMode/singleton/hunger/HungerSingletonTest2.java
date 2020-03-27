@@ -6,7 +6,7 @@ package algorithm.designMode.singleton.hunger;
 public class HungerSingletonTest2 {
     private HungerSingletonTest2(){}
 
-    private static HungerSingletonTest2 instance;
+    private static final HungerSingletonTest2 instance;
 
     static {
         instance = new HungerSingletonTest2();
